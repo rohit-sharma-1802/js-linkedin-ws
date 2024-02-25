@@ -73,6 +73,11 @@ async function scrapeLinkedIn(companyList) {
       companyData.push(companyObject);
     });
   }
+  else{
+    comanyLinkedinUrl.push("None");
+    const companyObject = { company: company, linkedin_url: "None" };
+    companyData.push(companyObject);
+  }
 }
 
 // Scraping people data
