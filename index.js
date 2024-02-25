@@ -54,7 +54,7 @@ async function scrapeLinkedIn(companyList) {
   for (const company of companyList) {
   await page.goto(`https://www.linkedin.com/search/results/companies/?keywords=${encodeURIComponent(company)}`, { waitUntil: 'domcontentloaded' });
   const currentUrl = page.url();
-  console.log(`URL after searching for ${company}:`, currentUrl);
+  console.log(`URL after searching for ${company}:`);
 
   const searchResultHTML = await page.content();
   const $ = cheerio.load(searchResultHTML);
@@ -63,13 +63,13 @@ async function scrapeLinkedIn(companyList) {
 
   if (results.length > 0) {
     results.each((index, element) => {
-      const companyName = $(element).find('.entity-result__title-text').text().trim();
-      const company = companyName.replace(/\s+/g, ' ').trim();
+      const companyName = $(element).find('.entity-result__title-text').text().trim() ;
+      const companySearch = companyName.replace(/\s+/g, ' ').trim();
       const companyUrl = $(element).find('.app-aware-link').attr('href');
       const companyUrlFound = companyUrl ? companyUrl : "None";
       comanyLinkedinUrl.push(companyUrlFound);
       // Create the object and push into node 
-      const companyObject = { company: company, linkedin_url: companyUrlFound };
+      const companyObject = { company: companySearch, linkedin_url: companyUrlFound };
       companyData.push(companyObject);
     });
   }
